@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c7172148-02b5-45be-bfef-6e07656778cd" name="Changes" comment="kk">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/P0903.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/P03.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/P04.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/P05.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/P06.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/P07.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/P_Insert.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/ProductoObjetoFicherosEscritura.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/ProductoObjetoFicherosLectura.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/T.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/util/ObjectFileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/util/ObjectFileWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/sng/util/Sentinel.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MroB8VHj9Whom4NL965XxyT7xK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hexdhog/Documents/CS/S2/PRG/P0903&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Application.P03">
+    <configuration name="P03" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sng.P03" />
+      <module name="P0903" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sng.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="P04" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sng.P04" />
+      <module name="P0903" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sng.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="P06" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sng.P06" />
+      <module name="P0903" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sng.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="P07" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sng.P07" />
+      <module name="P0903" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sng.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="P_Insert" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sng.P_Insert" />
+      <module name="P0903" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sng.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.P03" />
+        <item itemvalue="Application.P04" />
+        <item itemvalue="Application.P_Insert" />
+        <item itemvalue="Application.P07" />
+        <item itemvalue="Application.P06" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c7172148-02b5-45be-bfef-6e07656778cd" name="Changes" comment="" />
+      <created>1678534925603</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678534925603</updated>
+      <workItem from="1678959822400" duration="31000" />
+      <workItem from="1678959858926" duration="9000" />
+      <workItem from="1679219595818" duration="9000" />
+      <workItem from="1679762749021" duration="28000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
