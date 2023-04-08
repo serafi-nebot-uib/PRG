@@ -6,8 +6,8 @@ import java.io.Serializable;
  * The Player class contains all the attributes which define a Player.
  *
  * <p>
- *     This class also has a sentinel object, and a companion method, which are used for serialization using the sentinel
- *     technique.
+ * This class also has a sentinel object, and a companion method, which are used for serialization using the sentinel
+ * technique.
  * </p>
  */
 public class Player implements Serializable {

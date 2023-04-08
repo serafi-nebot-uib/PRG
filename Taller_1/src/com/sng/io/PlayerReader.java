@@ -9,6 +9,10 @@ import java.io.*;
  * technique.
  */
 public class PlayerReader implements Closeable {
+    /*
+    PLAYER_CHUNK_SIZE is used to allocate more space when reading an unknown amount of players.
+    A player buffer will grow by PLAYER_CHUNK_SIZE every time more space is needed.
+     */
     private static final Integer PLAYER_CHUNK_SIZE = 50;
 
     private final ObjectInputStream reader;
@@ -36,13 +40,15 @@ public class PlayerReader implements Closeable {
     /**
      * Resize array to specified size.
      *
-     * @param src array to resize
+     * @param src  array to resize
      * @param size new array size
      * @return otherwise resized array to new size or, source array if size < 0 or source array is null
      */
     private static Player[] resizeArray(Player[] src, int size) {
         if (size < 0 || src == null) return src;
         Player[] dst = new Player[size];
+        // copy contents of src array into dst array
+        // Math.min() is used to determine the maximum common index (to avoid an array overflow)
         for (int i = 0; i < Math.min(src.length, dst.length); i++)
             dst[i] = src[i];
         return dst;
@@ -51,8 +57,8 @@ public class PlayerReader implements Closeable {
     /**
      * Read next Player object from file.
      *
-     * @return next Player object
-     * @throws IOException if an I/O error occurs when reading from the file
+     * @return next Player object, or null if EOF has been reached
+     * @throws IOException            if an I/O error occurs when reading from the file
      * @throws ClassNotFoundException if an object different from Player is found
      */
     public Player read() throws IOException, ClassNotFoundException {
@@ -65,7 +71,7 @@ public class PlayerReader implements Closeable {
      * Read remaining Player objects from file.
      *
      * @return Player array containing all remaining Player objects
-     * @throws IOException if an I/O error occurs when reading from the file
+     * @throws IOException            if an I/O error occurs when reading from the file
      * @throws ClassNotFoundException if an object different from Player is found
      */
     public Player[] readAll() throws IOException, ClassNotFoundException {
@@ -74,6 +80,7 @@ public class PlayerReader implements Closeable {
         int i = 0;
         Player player = null;
         while ((player = read()) != null) {
+            // check if the current players array has enough capacity to hold all players
             if (i >= players.length)
                 players = resizeArray(players, players.length + PLAYER_CHUNK_SIZE);
             players[i++] = player;

@@ -9,8 +9,8 @@ import java.util.Random;
  * The RandomPlayerGenerator provides all the necessary methods to generate Player objects with random values.
  *
  * <p>
- *     <b>Note:</b> a player name list must be provided through <code>setPlayerNames(playerNames)</code> method and
- *     player names will be generated using that list. Otherwise all player names will be empty strings.
+ * <b>Note:</b> a player name list must be provided through <code>setPlayerNames(playerNames)</code> method and
+ * player names will be generated using that list. Otherwise all player names will be empty strings.
  * </p>
  */
 public class RandomPlayerGenerator {
@@ -39,8 +39,8 @@ public class RandomPlayerGenerator {
      * Create a RandomPlayerGenerator which generates Player objects with random values.
      *
      * <p>
-     *     <b>Note:</b> if this constructor is used, a player names list must be provided through the
-     *     <code>setPlayerNames(playerNames)</code> method.
+     * <b>Note:</b> if this constructor is used, a player names list must be provided through the
+     * <code>setPlayerNames(playerNames)</code> method.
      * </p>
      */
     public RandomPlayerGenerator() {
@@ -83,7 +83,7 @@ public class RandomPlayerGenerator {
      * Check if a name already exists inside an array of Players.
      *
      * @param players Player object array to check for names
-     * @param name name to match
+     * @param name    name to match
      * @return <code>true</code> if no Player exists with the specified <code>name</code>, <code>false</code> otherwise
      */
     private boolean isNameUnique(Player[] players, String name) {
