@@ -16,8 +16,6 @@ public class SortBubble {
 					swapped = true;
 				}
 			}
-			if (!swapped) break;
-			// Utils.dumpArray(src);
 		}
 		long et = System.nanoTime();
 

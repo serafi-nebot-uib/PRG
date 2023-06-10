@@ -1,13 +1,21 @@
 package com.sng;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 public class P_Insert {
     private static final String FILE_PATH = "productos.dat";
     private static final String TMP_FILE_PATH = "productos.tmp.dat";
 
     public static void main(String[] args) {
+        try {
+            RandomAccessFile f = new RandomAccessFile("test.dat", "rw");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         ProductoObjetoFicherosLectura reader = null;
         ProductoObjetoFicherosEscritura writer = null;
 

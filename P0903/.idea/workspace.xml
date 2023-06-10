@@ -5,26 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7172148-02b5-45be-bfef-6e07656778cd" name="Changes" comment="kk">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/P0903.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/P03.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/P04.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/P05.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/P06.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/P07.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/P_Insert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/ProductoObjetoFicherosEscritura.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/ProductoObjetoFicherosLectura.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/T.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/util/ObjectFileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/util/ObjectFileWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sng/util/Sentinel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Review/src/sort/SortBubble.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Review/src/sort/SortBubble.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +21,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -60,8 +41,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/hexdhog/Documents/CS/S2/PRG/P0903&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -153,6 +139,10 @@
       <workItem from="1678959858926" duration="9000" />
       <workItem from="1679219595818" duration="9000" />
       <workItem from="1679762749021" duration="28000" />
+      <workItem from="1685954531224" duration="114000" />
+      <workItem from="1685954671924" duration="962000" />
+      <workItem from="1685972103992" duration="24000" />
+      <workItem from="1686384835017" duration="82000" />
     </task>
     <servers />
   </component>

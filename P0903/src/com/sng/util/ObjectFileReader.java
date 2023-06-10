@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectFileReader<T extends Sentinel<?>> {
-    private final Class<com.sng.T> tClass;
+    private final Class<T> tClass;
     private final ObjectInputStream reader;
     private boolean eof = false;
 
@@ -19,7 +19,7 @@ public class ObjectFileReader<T extends Sentinel<?>> {
      * @param filePath file path
      * @throws IOException if there's a read error
      */
-    public ObjectFileReader(Class<com.sng.T> tClass, String filePath) throws IOException {
+    public ObjectFileReader(Class<T> tClass, String filePath) throws IOException {
         this.tClass = tClass;
         this.reader = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filePath)));
     }
