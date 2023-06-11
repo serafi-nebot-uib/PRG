@@ -1,9 +1,13 @@
 package com.sng.view;
 
+import com.sng.model.Partida;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
@@ -12,14 +16,34 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
     private final PanelSubImagenes panelSubImagenes;
     private final List<SubImagen> images = new ArrayList<>();
     private final JProgressBar barraTemporal;
+    private final Timer progressTimer;
+    private final Image image;
+    private final String name;
+    private PanelPartidaDelegate delegate;
 
-    public PanelPartida(BufferedImage image, int rows, int cols) {
+    public PanelPartida(String name, BufferedImage image, int rows, int cols) {
+        this.name = name;
+        this.image = image;
         this.rows = rows;
         this.cols = cols;
-        this.barraTemporal = new JProgressBar(0, 100);
+        this.barraTemporal = new JProgressBar(0, rows * cols * 3);
+        this.barraTemporal.setValue(0);
         this.barraTemporal.setBackground(Color.YELLOW);
         this.barraTemporal.setForeground(Color.RED);
-        setLayout(new BorderLayout());
+        this.barraTemporal.setStringPainted(true);
+        this.progressTimer = new Timer(1000, e -> {
+            int value = this.barraTemporal.getValue();
+            if (value == this.barraTemporal.getMaximum()) {
+                JOptionPane pane = new JOptionPane("NO LO HAS CONSEGUIDO - EL TIEMPO HA TERMIMADO", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+                pane.setBackground(Color.BLACK);
+                pane.setForeground(Color.YELLOW);
+                JDialog dialog = pane.createDialog("HAS PERDIDO");
+                dialog.setVisible(true);
+                end();
+            } else {
+                this.barraTemporal.setValue(value + 1);
+            }
+        });
 
         int width = image.getWidth() / cols;
         int height = image.getHeight() / rows;
@@ -36,7 +60,36 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
         }
         panelSubImagenes = new PanelSubImagenes(shuffled, rows, cols);
         panelSubImagenes.setDelegate(this);
+        setLayout(new BorderLayout());
         add(panelSubImagenes, BorderLayout.CENTER);
+        add(this.barraTemporal, BorderLayout.PAGE_END);
+        progressTimer.start();
+
+    }
+
+    public void setDelegate(PanelPartidaDelegate delegate) {
+        this.delegate = delegate;
+    }
+
+    public void end() {
+        this.progressTimer.stop();
+        removeAll();
+        JLabel imagenSolucion = new JLabel();
+        imagenSolucion.setIcon(new ImageIcon(this.image));
+        imagenSolucion.setHorizontalAlignment(JLabel.CENTER);
+        imagenSolucion.setVerticalAlignment(JLabel.CENTER);
+        add(imagenSolucion, BorderLayout.CENTER);
+        JButton botonContinuar = new JButton("CONTINUAR");
+        botonContinuar.setFont(new Font("Arial", Font.BOLD, 14));
+        botonContinuar.setBackground(Color.BLACK);
+        botonContinuar.setForeground(Color.WHITE);
+        botonContinuar.setOpaque(true);
+        botonContinuar.setBorderPainted(false);
+        botonContinuar.addActionListener(e -> {
+            if (this.delegate != null) this.delegate.panelPartidaDidEnd(new Partida(this.name, Date.from(Instant.now()), rows * cols));
+        });
+        add(botonContinuar, BorderLayout.PAGE_END);
+        revalidate();
     }
 
     @Override
@@ -44,6 +97,14 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
         boolean same = true;
         List<SubImagen> puzzle = panelSubImagenes.getImages();
         for (int i = 0; i < this.images.size() && same; i++) same = this.images.get(i) == puzzle.get(i);
-        System.out.println(same);
+        if (same) {
+            this.progressTimer.stop();
+            JOptionPane pane = new JOptionPane(String.format("¡ENHORABUENA! LO HAS CONSEGUIDO\nHAS OBTENIDO %d PUNTOS", rows * cols), JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+            pane.setBackground(Color.BLACK);
+            pane.setForeground(Color.YELLOW);
+            JDialog dialog = pane.createDialog("HAS GANADO");
+            dialog.setVisible(true);
+            end();
+        }
     }
 }

@@ -1,9 +1,9 @@
-package com.sng;
+package com.sng.io;
 
 import java.io.*;
 import java.util.List;
 
-public class ObjectWriter<T extends Serializable> {
+public class ObjectWriter<T extends Serializable> implements Closeable {
     private final ObjectOutputStream stream;
 
     public ObjectWriter(String path) throws IOException {
@@ -18,5 +18,10 @@ public class ObjectWriter<T extends Serializable> {
     public void write(List<T> objs) throws IOException {
         if (objs == null) return;
         for (int i = 0; i < objs.size(); i++) this.write(objs.get(i));
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.stream.close();
     }
 }

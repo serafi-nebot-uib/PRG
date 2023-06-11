@@ -1,20 +1,23 @@
-package com.sng;
+package com.sng.io;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectReader<T extends Serializable> {
+public class ObjectReader<T extends Serializable> implements Closeable {
     private final ObjectInputStream stream;
-    private final Class<T> clazz;
 
-    public ObjectReader(Class<T> clazz, String path) throws IOException {
-        this.clazz = clazz;
+    public ObjectReader(String path) throws IOException {
         this.stream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path)));
     }
 
     public T read() throws IOException, ClassNotFoundException {
-        return (T) this.stream.readObject();
+        T obj = null;
+        try {
+            obj = (T) this.stream.readObject();
+        } catch (EOFException ignored) {
+        }
+        return obj;
     }
 
     public List<T> readAll() throws IOException, ClassNotFoundException {
@@ -22,5 +25,10 @@ public class ObjectReader<T extends Serializable> {
         T obj = null;
         while ((obj = this.read()) != null) objs.add(obj);
         return objs;
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.stream.close();
     }
 }

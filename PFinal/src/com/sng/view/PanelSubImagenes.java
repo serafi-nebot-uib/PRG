@@ -24,22 +24,25 @@ public class PanelSubImagenes extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (images.size() == 0) return;
-                int x = (e.getX() - spacing) / images.get(0).width();
-                int y = (e.getY() - spacing) / images.get(0).height();
-                int idx = indexForCoord(x, y);
-                if (selected == null) {
-                    selected = idx;
-                } else {
-                    swap(selected, idx);
-                    selected = null;
-                    if (delegate != null) delegate.panelSubImagenesDidChange();
-                }
-                repaint();
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                if (images.size() == 0) return;
+                int marginX = (getWidth() - (cols * images.get(0).width() + spacing * (cols - 1))) / 2;
+                int marginY = (getHeight() - (rows * images.get(0).height() + spacing * (rows - 1))) / 2;
+                int x = (e.getX() - spacing - marginX) / images.get(0).width();
+                int y = (e.getY() - spacing - marginY) / images.get(0).height();
+                int idx = indexForCoord(x, y);
+                if (selected == null) {
+                    selected = idx;
+                    repaint();
+                } else {
+                    swap(selected, idx);
+                    selected = null;
+                    repaint();
+                    if (delegate != null) delegate.panelSubImagenesDidChange();
+                }
             }
 
             @Override
@@ -101,6 +104,8 @@ public class PanelSubImagenes extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
+        int marginX = (getWidth() - (cols * images.get(0).width() + spacing * (cols - 1))) / 2;
+        int marginY = (getHeight() - (rows * images.get(0).height() + spacing * (rows - 1))) / 2;
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 SubImagen subimage = getSubImage(x, y);
@@ -109,7 +114,7 @@ public class PanelSubImagenes extends JPanel {
                 float alpha = selected != null && selected == indexForCoord(x, y) ? 0.5f : 1.f;
                 AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
                 g2.setComposite(ac);
-                g2.drawImage(subimage.getImage(), x * subimage.width() + xspace, y * subimage.height() + yspace, subimage.width(), subimage.height(), null);
+                g2.drawImage(subimage.getImage(), marginX + x * subimage.width() + xspace, marginY + y * subimage.height() + yspace, subimage.width(), subimage.height(), null);
             }
         }
     }
