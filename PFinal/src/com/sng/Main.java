@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main implements PanelPartidaDelegate {
@@ -248,6 +249,7 @@ public class Main implements PanelPartidaDelegate {
             try {
                 rows = Integer.parseInt(nvField.getText());
                 cols = Integer.parseInt(nhField.getText());
+                // check if entered numbers are valid
                 if (rows <= 0 || cols <= 0) throw new NumberFormatException();
                 name = nameField.getText();
             } catch (NumberFormatException exc) {
@@ -258,6 +260,7 @@ public class Main implements PanelPartidaDelegate {
                 _dialog.setVisible(true);
             }
             if (name != null) {
+                // player has entered valid values, start the game
                 dialog.dispose();
                 startPuzzle(name, rows, cols);
             }
@@ -269,7 +272,6 @@ public class Main implements PanelPartidaDelegate {
     }
 
     private void startPuzzle(String name, int rows, int cols) {
-        playing = true;
         panelVisualizaciones.removeAll();
         File imageDir = new File(configuration.getImageDirectory());
         File[] files = imageDir.listFiles();
@@ -278,18 +280,29 @@ public class Main implements PanelPartidaDelegate {
             JDialog dialog = pane.createDialog("ERROR");
             dialog.setVisible(true);
         } else {
-            File file = files[(int) (Math.random() * files.length)];
             BufferedImage img = null;
-            try {
-                img = ImageIO.read(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            // select random offset and cycle through file array to until a valid image is found
+            int off = (int) (Math.random() * files.length);
+            for (int i = 0; i < files.length && img == null; i++) {
+                File file = files[(i + off) % files.length];
+                try {
+                    img = ImageIO.read(file);
+                } catch (IOException ignored) {
+                }
             }
-            PanelPartida panelPartida = new PanelPartida(name, img, rows, cols);
-            panelPartida.setDelegate(this);
-            panelVisualizaciones.add(panelPartida, BorderLayout.CENTER);
-            ventana.revalidate();
-            ventana.repaint();
+            if (img != null) {
+                PanelPartida panelPartida = new PanelPartida(name, img, rows, cols);
+                panelPartida.setDelegate(this);
+                panelVisualizaciones.add(panelPartida, BorderLayout.CENTER);
+                ventana.revalidate();
+                ventana.repaint();
+                playing = true;
+                panelPartida.start();
+            } else {
+                JOptionPane pane = new JOptionPane("EL DIRECTORIO DE IMÁGENES SELECCIONADO NO CONTIENE NINGUNA IMAGEN COMPATIBLE", JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
+                JDialog dialog = pane.createDialog("ERROR");
+                dialog.setVisible(true);
+            }
         }
     }
 
@@ -341,14 +354,7 @@ public class Main implements PanelPartidaDelegate {
             return;
         }
 
-        panelVisualizaciones.removeAll();
-        panelHistorial.removeAll();
-        JTextArea areaVisualizacionResultados = new JTextArea();
-        areaVisualizacionResultados.setText(str);
-        panelHistorial.add(areaVisualizacionResultados);
-        panelVisualizaciones.add(panelHistorial);
-        ventana.revalidate();
-        ventana.repaint();
+        showHistoryPanel(str);
     }
 
     private void showSelectiveHistory() {
@@ -402,14 +408,7 @@ public class Main implements PanelPartidaDelegate {
                 }
             }
 
-            panelVisualizaciones.removeAll();
-            panelHistorial.removeAll();
-            JTextArea areaVisualizacionResultados = new JTextArea();
-            areaVisualizacionResultados.setText(str);
-            panelHistorial.add(areaVisualizacionResultados);
-            panelVisualizaciones.add(panelHistorial);
-            ventana.revalidate();
-            ventana.repaint();
+            showHistoryPanel(str);
             dialog.dispose();
         });
         cancel.addActionListener(e -> {
@@ -421,6 +420,17 @@ public class Main implements PanelPartidaDelegate {
         dialog.setVisible(true);
     }
 
+    private void showHistoryPanel(String str) {
+        panelVisualizaciones.removeAll();
+        panelHistorial.removeAll();
+        JTextArea areaVisualizacionResultados = new JTextArea();
+        areaVisualizacionResultados.setText(str);
+        panelHistorial.add(areaVisualizacionResultados);
+        panelVisualizaciones.add(panelHistorial);
+        ventana.revalidate();
+        ventana.repaint();
+    }
+
     private void showStandby() {
         panelVisualizaciones.removeAll();
         panelVisualizaciones.add(panelStandby);
@@ -430,9 +440,11 @@ public class Main implements PanelPartidaDelegate {
 
     @Override
     public void panelPartidaDidEnd(Partida partida) {
+        // match has ended
         playing = false;
         showStandby();
 
+        // load all saved Partida objects from results file
         List<Partida> partidas = null;
         File file = new File(RESULTS_PATH);
         if (file.exists() && file.length() > 0) {
@@ -447,6 +459,7 @@ public class Main implements PanelPartidaDelegate {
             }
         }
 
+        // append played match to results file
         try (ObjectWriter<Partida> writer = new ObjectWriter<>(RESULTS_PATH)) {
             writer.write(partidas);
             writer.write(partida);
@@ -458,6 +471,7 @@ public class Main implements PanelPartidaDelegate {
         }
     }
 
+    // load configuration object from configuration file
     public Configuration loadConfiguration() {
         Configuration conf = DEFAULTS;
         try (ObjectReader<Configuration> reader = new ObjectReader<>(CONFIGURATION_PATH)) {
@@ -467,6 +481,7 @@ public class Main implements PanelPartidaDelegate {
         return conf;
     }
 
+    // store configuration object to configuration file
     public void storeConfiguration(Configuration conf) {
         try (ObjectWriter<Configuration> writer = new ObjectWriter<>(CONFIGURATION_PATH)) {
             writer.write(conf);

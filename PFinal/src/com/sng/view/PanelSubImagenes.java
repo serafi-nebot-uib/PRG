@@ -20,15 +20,18 @@ public class PanelSubImagenes extends JPanel {
         this.images = images;
         this.rows = rows;
         this.cols = cols;
-        if (images.size() != rows * cols) throw new IllegalArgumentException("image list size must match the matrix size");
+        if (images.size() != rows * cols)
+            throw new IllegalArgumentException("image list size must match the matrix size");
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
             }
 
+            // use mousePressed event as mouseClick has a greater delay (takes more time to register)
             @Override
             public void mousePressed(MouseEvent e) {
                 if (images.size() == 0) return;
+                // extract image index from click coordinates
                 int marginX = (getWidth() - (cols * images.get(0).width() + spacing * (cols - 1))) / 2;
                 int marginY = (getHeight() - (rows * images.get(0).height() + spacing * (rows - 1))) / 2;
                 int x = (e.getX() - spacing - marginX) / images.get(0).width();
@@ -41,6 +44,7 @@ public class PanelSubImagenes extends JPanel {
                     swap(selected, idx);
                     selected = null;
                     repaint();
+                    // notify parent that there has been a change in the puzzle
                     if (delegate != null) delegate.panelSubImagenesDidChange();
                 }
             }
@@ -62,7 +66,6 @@ public class PanelSubImagenes extends JPanel {
     public PanelSubImagenes(List<SubImagen> images, int rows, int cols, int spacing) {
         this(images, rows, cols);
         this.spacing = spacing;
-        setPreferredSize(new Dimension(images.get(0).width() * cols, images.get(0).height() * rows));
     }
 
     public int getSpacing() {
@@ -81,6 +84,7 @@ public class PanelSubImagenes extends JPanel {
         this.delegate = delegate;
     }
 
+    // swap two images from the image list
     public void swap(int first, int second) {
         if (first >= this.images.size() || second >= this.images.size()) return;
         SubImagen tmp = this.images.get(first);
@@ -104,6 +108,7 @@ public class PanelSubImagenes extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
+        // calculate margins to center puzzle
         int marginX = (getWidth() - (cols * images.get(0).width() + spacing * (cols - 1))) / 2;
         int marginY = (getHeight() - (rows * images.get(0).height() + spacing * (rows - 1))) / 2;
         for (int y = 0; y < rows; y++) {
@@ -111,6 +116,7 @@ public class PanelSubImagenes extends JPanel {
                 SubImagen subimage = getSubImage(x, y);
                 int xspace = this.spacing * x;
                 int yspace = this.spacing * y;
+                // if an image is selected, make it slightly more transparent
                 float alpha = selected != null && selected == indexForCoord(x, y) ? 0.5f : 1.f;
                 AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
                 g2.setComposite(ac);

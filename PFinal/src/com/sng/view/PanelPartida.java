@@ -22,18 +22,20 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
     private PanelPartidaDelegate delegate;
 
     public PanelPartida(String name, BufferedImage image, int rows, int cols) {
+        super();
         this.name = name;
         this.image = image;
         this.rows = rows;
         this.cols = cols;
+        // assign a time limit based on chosen rows and columns
         this.barraTemporal = new JProgressBar(0, rows * cols * 3);
         this.barraTemporal.setValue(0);
-        this.barraTemporal.setBackground(Color.YELLOW);
-        this.barraTemporal.setForeground(Color.RED);
-        this.barraTemporal.setStringPainted(true);
+        this.barraTemporal.setStringPainted(true); // show current percentage
+        // increment progress bar by one each second
         this.progressTimer = new Timer(1000, e -> {
             int value = this.barraTemporal.getValue();
             if (value == this.barraTemporal.getMaximum()) {
+                // time limit reached, show failure message to the player
                 JOptionPane pane = new JOptionPane("NO LO HAS CONSEGUIDO - EL TIEMPO HA TERMIMADO", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
                 pane.setBackground(Color.BLACK);
                 pane.setForeground(Color.YELLOW);
@@ -45,6 +47,7 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
             }
         });
 
+        // determine the width and height of each sub-image based on chosen rows and columns
         int width = image.getWidth() / cols;
         int height = image.getHeight() / rows;
         for (int i = 0; i < rows; i++)
@@ -63,8 +66,10 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
         setLayout(new BorderLayout());
         add(panelSubImagenes, BorderLayout.CENTER);
         add(this.barraTemporal, BorderLayout.PAGE_END);
-        progressTimer.start();
+    }
 
+    public void start() {
+        progressTimer.start();
     }
 
     public void setDelegate(PanelPartidaDelegate delegate) {
@@ -86,7 +91,9 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
         botonContinuar.setOpaque(true);
         botonContinuar.setBorderPainted(false);
         botonContinuar.addActionListener(e -> {
-            if (this.delegate != null) this.delegate.panelPartidaDidEnd(new Partida(this.name, Date.from(Instant.now()), rows * cols));
+            // notify parent that the match is over
+            if (this.delegate != null)
+                this.delegate.panelPartidaDidEnd(new Partida(this.name, Date.from(Instant.now()), rows * cols));
         });
         add(botonContinuar, BorderLayout.PAGE_END);
         revalidate();
@@ -94,10 +101,12 @@ public class PanelPartida extends JPanel implements PanelSubImagenesDelegate {
 
     @Override
     public void panelSubImagenesDidChange() {
+        // there has been a change in the puzzle, check if the puzzle has been solved
         boolean same = true;
         List<SubImagen> puzzle = panelSubImagenes.getImages();
         for (int i = 0; i < this.images.size() && same; i++) same = this.images.get(i) == puzzle.get(i);
         if (same) {
+            // puzzle has been solved, display success message to player
             this.progressTimer.stop();
             JOptionPane pane = new JOptionPane(String.format("¡ENHORABUENA! LO HAS CONSEGUIDO\nHAS OBTENIDO %d PUNTOS", rows * cols), JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
             pane.setBackground(Color.BLACK);
